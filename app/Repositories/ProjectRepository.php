@@ -2,57 +2,30 @@
 
 namespace App\Repositories;
 
+use App\Repositories\AbstractRepository;
 use App\Models\Project;
 
-class ProjectRepository
+class ProjectRepository extends AbstractRepository
 {
-    protected $model;
-
-    public function __construct(Project $model)
-    {
-        $this->model = $model;
-    }
+    protected static $model = Project::class;
 
     public function countAll(){
-        $count = $this->model->all();
+        $count = self::getAll();
         return $count->count();
     }
 
     public function countByStatus(int $status){
-        $count = $this->model->query()->where('status', $status);
+        $count = self::loadModel()::query()->where('status', $status);
         return $count->count();
     }
 
-    public function getAll()
-    {
-        return $this->model->all();
-    }
-
-    public function getById($id)
-    {
-        return $this->model->find($id);
-    }
-
-    public function create($data)
-    {
-        return $this->model->create($data);
-    }
-
-    public function update($id, $data)
-    {
-        $project = $this->model->find($id);
-        $project->update($data);
-        return $project;
-    }
-
-    public function delete($id)
-    {
-        return $this->model->destroy($id);
+    public function findBy($nome){
+        return self::loadModel()::query()->where('name', $nome);
     }
 
     public function searchAndFilter($search='', $status='')
     {
-        $query = $this->model->query();
+        $query = self::loadModel()::query();
 
         if($search){
             $query->where('name', 'like', '%' . $search . '%');

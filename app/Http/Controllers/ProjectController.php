@@ -45,12 +45,14 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:40',
             'description' => 'required|string',
             'status' => 'required',
         ]);
-
-
+        $encontrarProjeto = $this->projectRepository->findBy($request->name);
+        if($encontrarProjeto){
+            return redirect()->route('projects.index')->with('success', 'Projeto Já existe!');
+        }
         $this->projectRepository->create($data);
 
         return redirect()->route('projects.index')->with('success', 'Projeto criado com sucesso!');
