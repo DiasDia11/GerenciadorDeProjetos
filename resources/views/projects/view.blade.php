@@ -18,13 +18,13 @@
                     </div>
                     <div class="mt-4">
                         <select name="status" class="form-select form-select-sm" aria-label="Small select example">
+                            <option value="" >Qualquer Status</option>
                             <option value="1" >Concluido</option>
                             <option value="2" >Em Andamento</option>
                             <option value="3" >Aguardando</option>
                         </select>
                     </div>
-
-                    <div class="form-group">
+                    <div class="form-group mt-4">
                         <button type="submit" class="btn btn-outline-primary">Filtrar</button>
                     </div>
                 </form>
