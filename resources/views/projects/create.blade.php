@@ -31,6 +31,15 @@
                             <x-input-error :messages="$errors->get('description')" class="mt-2" />
                         </div>
 
+                        <div class="mt-4">
+                            <select name="status" class="form-select form-select-sm" aria-label="Small select example">
+                                <option selected>Selecione uma opção</option>
+                                <option value="1">Concluido</option>
+                                <option value="2">Em Andamento</option>
+                                <option value="3">Aguardando</option>
+                            </select>
+                        </div>
+
                         <div class="flex items-center justify-start mt-4">
                             <x-primary-button class="ml-1">
                                 {{ __('Registrar') }}

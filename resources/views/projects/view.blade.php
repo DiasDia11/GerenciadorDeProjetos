@@ -16,6 +16,14 @@
                         <input type="text" style="border: solid 1px;border-radius: 15px;" name="search" class="form-control" id="floatingInput" placeholder="name@example.com">
                         <label for="floatingInput">Pesquise por Nome:</label>
                     </div>
+                    <div class="mt-4">
+                        <select name="status" class="form-select form-select-sm" aria-label="Small select example">
+                            <option value="1" >Concluido</option>
+                            <option value="2" >Em Andamento</option>
+                            <option value="3" >Aguardando</option>
+                        </select>
+                    </div>
+
                     <div class="form-group">
                         <button type="submit" class="btn btn-outline-primary">Filtrar</button>
                     </div>
@@ -37,6 +45,7 @@
                     <thead>
                         <tr>
                             <th scope="col">Nome</th>
+                            <th scope="col">Status</th>
                             <th scope="col" style="display: flex; justify-content: end;">Opções</th>
                           </tr>
                     </thead>
@@ -44,6 +53,13 @@
                         @foreach ($projects as $project)
                         <tr>
                             <th scope="row">{{$project->name}}</th>
+                            <th scope="row">@if ($project->status == 1)
+                                Concluido
+                            @elseif ($project->status == 2)
+                                Em Andamento
+                            @elseif ($project->status == 3)
+                                Agurdando Inicio
+                            @endif</th>
                             <td>
                                 <div style="display: flex; justify-content: end;">
                                 <a href="{{route('projects.edit',['project' => $project->id])}}">

@@ -47,6 +47,7 @@ class ProjectController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
+            'status' => 'required',
         ]);
 
 
@@ -72,6 +73,7 @@ class ProjectController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
+            'status' => 'required',
         ]);
 
         $this->projectRepository->update($id, $data);

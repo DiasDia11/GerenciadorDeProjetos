@@ -34,6 +34,13 @@
                             <x-input-error :messages="$errors->get('description')" class="mt-2" />
                         </div>
 
+                        <div class="mt-4">
+                            <select name="status" class="form-select form-select-sm" aria-label="Small select example">
+                                <option value="1" @if($project->status == 1) selected @endif >Concluido</option>
+                                <option value="2" @if($project->status == 2) selected @endif >Em Andamento</option>
+                                <option value="3" @if($project->status == 3) selected @endif >Aguardando</option>
+                            </select>
+                        </div>
                         <div class="flex items-center justify-start mt-4">
                             <x-primary-button class="ml-1">
                                 {{ __('Atualizar') }}
