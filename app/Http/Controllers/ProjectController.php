@@ -81,6 +81,15 @@ class ProjectController extends Controller
         return redirect()->route('projects.index')->with('success', 'Projeto atualizado!');
     }
 
+    public function dashboard()
+    {
+        $totalProjetos = $this->projectRepository->countAll();
+        $concluidos = $this->projectRepository->countByStatus(1);
+        $emAndamento = $this->projectRepository->countByStatus(2);
+        $aFazer = $this->projectRepository->countByStatus(3);
+
+        return view('dashboard', compact('totalProjetos', 'concluidos', 'emAndamento', 'aFazer'));
+    }
     /**
      * Remove the specified resource from storage.
      */

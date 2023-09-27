@@ -13,6 +13,16 @@ class ProjectRepository
         $this->model = $model;
     }
 
+    public function countAll(){
+        $count = $this->model->all();
+        return $count->count();
+    }
+
+    public function countByStatus(int $status){
+        $count = $this->model->query()->where('status', $status);
+        return $count->count();
+    }
+
     public function getAll()
     {
         return $this->model->all();
