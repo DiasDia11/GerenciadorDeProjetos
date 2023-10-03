@@ -30,4 +30,8 @@ class TarefaRepository extends AbstractRepository
         return redirect()->back()->with('success', 'Tarefa dessassociada com Sucesso!');
     }
 
+    public static function findByTarefas($tarefa)
+    {
+        return self::loadModel()->query()->where('tarefas', $tarefa);
+    }
 }

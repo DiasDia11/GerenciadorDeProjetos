@@ -40,6 +40,10 @@
                     <div class="alert alert-success" role="alert">
                         {{session('success')}}
                     </div>
+                @elseif (session('denied'))
+                    <div class="alert alert-danger" role="alert">
+                        {{session('denied')}}
+                    </div>
                 @endif
                 <table class="table table-hover">
                     <thead>
@@ -52,7 +56,7 @@
                     <tbody class="table-group-divider">
                         @foreach ($projects as $project)
                         <tr>
-                            <th scope="row">{{$project->name}}</th>
+                            <th scope="row">{{$project->nome}}</th>
                             <th scope="row">@if ($project->status == 1)
                                 Concluido
                             @elseif ($project->status == 2)

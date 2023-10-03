@@ -27,7 +27,7 @@ class TarefaController extends Controller
      */
     public function create()
     {
-        //
+        return view('tarefas.create');
     }
 
     /**
@@ -35,15 +35,18 @@ class TarefaController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $data = $request->validate([
+            'nome' => 'required|string|max:100',
+            'descricao' => 'required|string|max:255',
+            'completed' => 'required|boolean',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        $encontrarTarefa = $this->tarefaRepository->findByTarefas($request->tarefas);
+        if($encontrarTarefa){
+            return redirect()->route('tarefas.index')->with('denied', 'Projeto Já existe!');
+        }
+        $this->tarefaRepository->create($data);
+        return redirect()->route('tarefas.index')->with('success', 'Projeto criado com sucesso!');
     }
 
     /**
@@ -51,7 +54,8 @@ class TarefaController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $tarefa = $this->tarefaRepository->getById($id);
+        return view('tarefas.edit', compact('tarefa'));
     }
 
     /**
@@ -59,7 +63,14 @@ class TarefaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = $request->validate([
+            'tarefas' => 'required|string|max:100',
+            'completed' => 'required|boolean',
+        ]);
+
+        $this->tarefaRepository->update($id, $data);
+
+        return redirect()->route('tarefas.index')->with('success', 'Tarefa Atualizada!');
     }
 
     /**
@@ -67,6 +78,7 @@ class TarefaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $this->tarefaRepository->delete($id);
+        return redirect()->route('tarefas.index')->with('success', 'Tarefa Removida Com Sucesso!');
     }
 }

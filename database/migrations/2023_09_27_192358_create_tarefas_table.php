@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('tarefas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('projeto_id');
-            $table->string('tarefas');
-            $table->boolean('completed')->default(false);
+            $table->string('nome');
+            $table->string('descricao');
+            $table->boolean('completa')->default(false);
             $table->timestamps();
 
             $table->foreign('projeto_id')->references('id')->on('projects');

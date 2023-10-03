@@ -14,21 +14,25 @@
                             <div class="alert alert-primary" role="alert">
                                 {{session('success')}}
                             </div>
+                        @elseif (session('denied'))
+                        <div class="alert alert-danger" role="alert">
+                            {{session('denied')}}
+                        </div>
                         @endif
                     </h2>
                     <form method="POST" action="{{ route('projects.store') }}">
                         @csrf
 
                         <div>
-                            <x-input-label for="name" :value="__('Nome do Projeto')" />
-                            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                            <x-input-label for="nome" :value="__('Nome do Projeto')" />
+                            <x-text-input id="nome" class="block mt-1 w-full" type="text" name="nome" :value="old('nome')" required autofocus autocomplete="name" />
+                            <x-input-error :messages="$errors->get('nome')" class="mt-2" />
                         </div>
 
                         <div class="mt-4">
-                            <x-input-label for="description" :value="__('Descrição')" />
-                            <x-text-input id="description" class="block mt-1 w-full" type="text" name="description" :value="old('description')" required autocomplete="username" />
-                            <x-input-error :messages="$errors->get('description')" class="mt-2" />
+                            <x-input-label for="descricao" :value="__('Descrição')" />
+                            <x-text-input id="descricao" class="block mt-1 w-full" type="text" name="descricao" :value="old('descricao')" required autocomplete="username" />
+                            <x-input-error :messages="$errors->get('descricao')" class="mt-2" />
                         </div>
 
                         <div class="mt-4">

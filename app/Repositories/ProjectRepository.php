@@ -20,7 +20,7 @@ class ProjectRepository extends AbstractRepository
     }
 
     public function findBy($nome){
-        return self::loadModel()::query()->where('name', $nome);
+        return self::loadModel()::query()->where('nome', $nome)->get();
     }
 
     public function searchAndFilter($search='', $status='')
@@ -28,7 +28,7 @@ class ProjectRepository extends AbstractRepository
         $query = self::loadModel()::query();
 
         if($search){
-            $query->where('name', 'like', '%' . $search . '%');
+            $query->where('nome', 'like', '%' . $search . '%');
         }
 
         if($status) {

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Repositories\ProjectRepository;
 use Illuminate\Http\Request;
 
+use function PHPUnit\Framework\isEmpty;
+use function PHPUnit\Framework\isNull;
+
 class ProjectController extends Controller
 {
 
@@ -45,17 +48,18 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required|string|max:40',
-            'description' => 'required|string',
+            'nome' => 'required|string|max:40',
+            'descricao' => 'required|string',
             'status' => 'required',
         ]);
-        $encontrarProjeto = $this->projectRepository->findBy($request->name);
-        if($encontrarProjeto){
-            return redirect()->route('projects.index')->with('success', 'Projeto Já existe!');
-        }
-        $this->projectRepository->create($data);
+        $encontrarProjeto = $this->projectRepository->findBy($request->nome);
 
-        return redirect()->route('projects.index')->with('success', 'Projeto criado com sucesso!');
+        if($encontrarProjeto->isEmpty()){
+            $this->projectRepository->create($data);
+            return redirect()->route('projects.index')->with('success', 'Projeto criado com sucesso!');
+        }
+        return redirect()->route('projects.index')->with('denied', 'Projeto Já existe!');
+
     }
 
     /**
@@ -73,8 +77,8 @@ class ProjectController extends Controller
     public function update(Request $request, string $id)
     {
         $data = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
+            'nome' => 'required|string|max:255',
+            'descricao' => 'required|string',
             'status' => 'required',
         ]);
 
